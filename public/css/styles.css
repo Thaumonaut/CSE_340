@@ -5,7 +5,9 @@
   box-sizing: border-box;
 
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  --main-color: #33a7dd;
+  --main-color: #ca243a;
+  --black: #222;
+  --white: #f3fafa;
 }
 
 html {
@@ -13,7 +15,7 @@ html {
 }
 
 body {
-  background-color: white;
+  background-color: var(--white);
   max-width: 800px;
   position: relative;
   left: 0;
@@ -40,7 +42,7 @@ h1, h2, h3, h4, h5, h6 {
 main {
   display: grid;
   grid-template-columns: 1fr;
-  background-color: white;
+  background-color: var(--white);
 }
 
 #top-header {
@@ -57,7 +59,7 @@ main {
 }
 
 .siteName a {
-  color: #333;
+  color: var(--black);
   font-weight: 400;
   text-decoration: none;
   font-size: 3rem;
@@ -71,14 +73,15 @@ main {
 
 #tools a {
   text-decoration: none;
-  color: #333;
+  color: var(--black);
 }
 
 nav ul li {
   padding: .5rem 1rem;
-  color: white;
+  color: var(--white);
   max-width: 200px;
   width: auto;
+  cursor: pointer;
 }
 
 nav ul li:hover {
@@ -86,7 +89,7 @@ nav ul li:hover {
 }
 
 nav {
-  background-color: #333;
+  background-color: var(--black);
   text-align: center;
   margin: auto;
   left: 0;
@@ -124,15 +127,15 @@ nav ul {
 .goto-button {
   padding: 1rem 2rem;
   text-decoration: none;
-  color: #333;
+  color: var(--white);
   background-color: var(--main-color);
   min-height: 88px;
   font-weight: 800;
 }
 
 .goto-button:hover {
-  background-color: #333;
-  color: white;
+  background-color: var(--black);
+  color: var(--white);
 }
 
 .overlay h2 {
@@ -161,7 +164,12 @@ figure {
   margin: 1rem 5px;
 }
 
-@media screen and (min-width: 500px) {
+figure a {
+  text-decoration: none;
+  color: var(--black)
+}
+
+@media screen and (min-width: 600px) {
   main {
     grid-template-columns: 1fr 1fr; 
   }
@@ -172,6 +180,15 @@ figure {
 
   #delorean-upgrades {
     grid-column: 1 / 2;
-    grid-row: 3 / 4;
+    grid-row: 4 / 5;
+  }
+
+  #delorean-review-title, #delorean-upgrades-title {
+    grid-row: 3/4;
+    grid-column: 2/3;
+  }
+
+  #delorean-upgrades-title {
+    grid-column: 1/2;
   }
 }
