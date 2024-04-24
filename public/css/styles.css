@@ -147,7 +147,7 @@ nav ul {
   grid-template-columns: 1fr 1fr;
 }
 
-quote::before, quote::after {
+.quote::before, .quote::after {
   content: "\"";
 }
 
