@@ -76,15 +76,20 @@ main {
   color: var(--black);
 }
 
-nav ul li {
+nav ul li a {
   padding: .5rem 1rem;
   color: var(--white);
   max-width: 200px;
   width: auto;
   cursor: pointer;
+  text-decoration: none;
 }
 
-nav ul li:hover {
+nav ul li {
+  padding: .5rem 1rem;
+}
+
+nav ul li a:hover {
   background-color: var(--main-color);
 }
 
