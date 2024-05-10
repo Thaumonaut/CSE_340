@@ -13,6 +13,7 @@ const static = require("./routes/static")
 const baseController = require("./controllers/baseController")
 const inventoryRoute = require('./routes/inventoryRoute')
 const utilities = require('./utilities/')
+const { populate } = require("dotenv")
 
 /* ***********************
  * View Engine and Templates
@@ -30,7 +31,6 @@ app.use("/inv", inventoryRoute)
 
 // Index Route
 app.get("/", utilities.handleErrors(baseController.buildHome))
-
 app.use(async (req, res, next) => {
   next({status: 404, message: 'Woops, that is not suppose to happen.'})
 })

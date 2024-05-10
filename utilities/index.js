@@ -56,11 +56,38 @@ Util.buildClassificationGrid = async function(data){
   return grid
 }
 
+Util.buildVehicleDetails = async function(data) {
+  let layout
+  if(!data) return '<p class="notice">Looks like there is nothing here. </p>';
+
+    layout = `
+      <section class="grid">
+          <img src="${data.inv_image }" alt="Image of ${ data.inv_make } ${ data.inv_model }" class="vehicle-img">
+          <div>
+              <h2>${ data.inv_make } ${ data.inv_model } Details</h2>
+              <p class="price-display"><b>Price: </b>
+                  ${ Intl.NumberFormat('en-US', {
+                      style:'currency',
+                      currency: 'USD',
+                  }).format(data.inv_price) }</p>
+              <p><b>Description: </b>${ data.inv_description }</p>
+              <p><b>Color: </b> ${ data.inv_color }</p>
+              <p><b>Miles: </b> 
+                  ${ Intl.NumberFormat('en-US').format(data.inv_miles) }</p>    
+          </div>
+      </section>
+    `
+
+  return layout;
+}
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 
  * General Error Handling
  **************************************** */
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+
+Util.serverError = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(() => next({status: 500}))
 
 module.exports = Util

@@ -1,0 +1,11 @@
+<% if (title) { %>
+    <h1 class="full-width"><%= title %></h1>
+<% } else {
+    res.redirect('/')
+} %>
+
+<!-- Message Display -->
+<%# message() %>
+
+<!-- Content -->
+<%- content %>
