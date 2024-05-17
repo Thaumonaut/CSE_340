@@ -35,4 +35,49 @@ invCont.buildByVehicleId = async function (req, res, next) {
   })
 }
 
+invCont.buildManagementView = async function (req, res, next) {
+  let nav = await utilities.getNav();
+  res.render("./inventory/management", {
+    title: "Management",
+    nav
+  })
+}
+
+invCont.buildClassification = async function (req, res, next) {
+  let nav = await utilities.getNav();
+  res.render("./inventory/add-classification", {
+    title: "Add Classification",
+    nav,
+    errors: null,
+  })
+}
+
+invCont.addClassification = async function (req, res, next) {
+  const {classification_name} = req.body
+  const insertResult = await invModel.createClassification(classification_name)
+  let nav = await utilities.getNav();
+
+  if (insertResult) {
+    req.flash(
+      "notice",
+      `Successfully added ${classification_name} to the list of classifications!`
+    )
+    res.status(201).render("inventory/add-classification", {
+      title: "Add Classification",
+      nav,
+      errors: null
+    })
+  } else {
+    req.flash(
+      "warning",
+      `Sorry, ${classification_name} was not added to the list of classifications.`
+    )
+    res.status(501).render("inventory/add-classification", {
+      title: "Add Classifiation",
+      nav,
+      error: null
+    })
+  }
+}
+
 module.exports = invCont;

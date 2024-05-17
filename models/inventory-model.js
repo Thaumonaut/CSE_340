@@ -40,4 +40,24 @@ async function getVehicleDetails(inv_id) {
   }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId, getVehicleDetails}
+async function createClassification(classification_name) {
+  try {
+    return await pool.query(
+    ` INSERT INTO classification
+        (classification_name)
+      VALUES
+        ($1)
+      RETURNING *`,
+      [classification_name]
+    )
+  } catch (error) {
+    return error.message
+  }
+}
+
+module.exports = {
+  getClassifications, 
+  getInventoryByClassificationId,
+  getVehicleDetails,
+  createClassification
+}
