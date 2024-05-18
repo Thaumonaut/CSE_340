@@ -42,7 +42,7 @@ async function getVehicleDetails(inv_id) {
 
 async function createClassification(classification_name) {
   try {
-    return await pool.query(
+    await pool.query(
     ` INSERT INTO classification
         (classification_name)
       VALUES
@@ -50,6 +50,7 @@ async function createClassification(classification_name) {
       RETURNING *`,
       [classification_name]
     )
+    return;
   } catch (error) {
     return error.message
   }

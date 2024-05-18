@@ -220,7 +220,7 @@ form label {
   margin-top: 1rem;
 }
 
-form input {
+form input, textarea, select {
   margin-top: .25rem;
   padding: .5rem;
 }
@@ -229,14 +229,20 @@ form input {
   color: #e7b81b
 }
 
-input:required:invalid, input:focus:invalid {
+input:required:invalid, input:focus:invalid, textarea:required:invalid {
   border: none;
   border-left: #e7b81b 10px solid;
 }
 
-form input:required:valid {
+form input:required:valid, textarea:required:valid {
   border: none;
   border-left: #22c52b 10px solid;
+}
+
+textarea {
+  resize: block;
+  max-height: 400px;
+  min-height: 150px;
 }
 
 form button {

@@ -57,7 +57,7 @@ invCont.addClassification = async function (req, res, next) {
   const insertResult = await invModel.createClassification(classification_name)
   let nav = await utilities.getNav();
 
-  if (insertResult) {
+  if (!insertResult) {
     req.flash(
       "notice",
       `Successfully added ${classification_name} to the list of classifications!`
@@ -78,6 +78,31 @@ invCont.addClassification = async function (req, res, next) {
       error: null
     })
   }
+}
+
+invCont.addInventoryHandler = async function (req, res, next) {
+  let nav = await utilities.getNav();
+  let classificationList = await utilities.buildClassificationList();
+  res.render("./inventory/add-inventory", {
+    title: "Add Inventory Item",
+    nav,
+    errors: null,
+    classificationList
+  })
+}
+
+invCont.addInventory = async function (req, res, next) {
+  let nav = await utilities.getNav();
+  let classificationList = await utilities.buildClassificationList();
+  
+  req.flash("alert", "Form is valid!")
+  
+  res.render("./inventory/add-inventory", {
+    title: "Add Inventory Item",
+    nav,
+    errors: null,
+    classificationList
+  })
 }
 
 module.exports = invCont;
