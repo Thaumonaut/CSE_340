@@ -56,9 +56,60 @@ async function createClassification(classification_name) {
   }
 }
 
+async function createInventoryItem(
+  inv_make,
+  inv_model,
+  inv_year,
+  inv_description,
+  inv_image,
+  inv_thumbnail,
+  inv_price,
+  inv_miles,
+  inv_color,
+  classification_id
+) {
+  const imgURI = "/images/vehicles/"
+
+  const sql = 
+    `INSERT INTO inventory
+      (inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_color,
+      classification_id)
+    VALUES
+      ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+    RETURNING *`
+
+  try {
+    const data = await pool.query(
+      sql,
+      [inv_make,
+        inv_model,
+        inv_year,
+        inv_description,
+        imgURI + inv_image,
+        imgURI + inv_thumbnail,
+        inv_price,
+        inv_miles,
+        inv_color,
+        classification_id]
+    )
+    return data.rows;
+  } catch (error) {
+    console.error("Error inserting inventory item " + error)
+  }
+}
+
 module.exports = {
   getClassifications, 
   getInventoryByClassificationId,
   getVehicleDetails,
-  createClassification
+  createClassification,
+  createInventoryItem
 }

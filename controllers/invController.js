@@ -75,7 +75,7 @@ invCont.addClassification = async function (req, res, next) {
     res.status(501).render("inventory/add-classification", {
       title: "Add Classifiation",
       nav,
-      error: null
+      errors: null
     })
   }
 }
@@ -94,15 +94,37 @@ invCont.addInventoryHandler = async function (req, res, next) {
 invCont.addInventory = async function (req, res, next) {
   let nav = await utilities.getNav();
   let classificationList = await utilities.buildClassificationList();
-  
-  req.flash("alert", "Form is valid!")
-  
-  res.render("./inventory/add-inventory", {
-    title: "Add Inventory Item",
-    nav,
-    errors: null,
-    classificationList
-  })
+  let { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id
+  } = req.body;
+  const createdItem = await invModel.createInventoryItem(
+    inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id
+  );
+
+  console.log(createdItem);
+
+  if (createdItem) {
+    req.flash(
+      "notice",
+      `Successfully added the ${inv_make + " " + inv_model} to the inventory!`
+    )
+    res.status(201).render("inventory/add-inventory", {
+      title: "Add Classification",
+      nav,
+      errors: null,
+      classificationList
+    })
+  } else {
+    req.flash(
+      "warning",
+      `Sorry, due to an error, the ${inv_make + " " + inv_model} was not added to the inventory.`
+    )
+    res.status(501).render("inventory/add-inventory", {
+      title: "Add Classifiation",
+      nav,
+      errors: null,
+      classificationList
+    })
+  }
 }
 
 module.exports = invCont;

@@ -15,6 +15,11 @@
 <% } %>
 
 <form action="/inv/create" method="post">
+
+  <!-- Classification -->
+  <label for="classification-list">Classification:</label>
+  <%- classificationList %>
+
   <!-- Make -->
   <label for="inv-make">Make:</label>
   <input 
@@ -23,7 +28,8 @@
     id="inv-make" 
     required 
     value="<%= locals.inv_make %>"
-    placeholder="Ford"
+    pattern=".{3,}"
+    placeholder="Min 3 Characters"
     >
   
   <!-- Model -->
@@ -33,20 +39,23 @@
     name="inv_model"
     id="inv-model"
     required
+    pattern=".{3,}"
     value="<%= locals.inv_model %>"
-    placeholder="Bronco"
+    placeholder="Min 3 Characters"
   >
   
   <!-- Year -->
   <label for="inv-year">Year:</label>
   <input 
-    type="number" 
-    name="inv_year" 
-    id="inv-year" 
-    required 
+    type="text"
+    inputmode="numeric"
+    name="inv_year"
+    id="inv-year"
+    required
+    pattern="[0-9]{4}"
     value="<%= locals.inv_year %>"
-    placeholder="1967"
-    >
+    placeholder="4-Digits Required"
+  >
   
   <!-- Description -->
   <label for="inv-description">Description:</label>
@@ -54,33 +63,29 @@
     name="inv_description" 
     id="inv-description" 
     required 
-    placeholder="The ford bronco is..."
+    placeholder="Information about the vehicle..."
   ><%= locals.inv_description %></textarea>
 
   <!-- Image -->
   <label for="inv-image">Image:</label>
-  <input type="text" name="inv_image" id="inv-image" required value="<%= locals.inv_image %>" placeholder="image.jpg">
+  <input type="text" name="inv_image" id="inv-image" required value="<%= locals.inv_image %>" placeholder="image.jpg" pattern="^[^\s]+\.(jpg|jpeg|png|gif|bmp)$">
   
   <!-- Thumbnail -->
   <label for="inv-thumbnail">Thumbnail:</label>
-  <input type="text" name="inv_thumbnail" id="inv-thumbnail" required value="<%= locals.inv_thumbnail %>" placeholder="image-tn.jpg">
+  <input type="text" name="inv_thumbnail" id="inv-thumbnail" required value="<%= locals.inv_thumbnail %>" placeholder="image-tn.jpg" pattern="^[^\s]+\.(jpg|jpeg|png|gif|bmp)$">
 
   <!-- Price -->
   <label for="inv-price">Price:</label>
-  <input type="text" name="inv_price" id="inv-price" required value="<%= locals.inv_price %>" placeholder="2499.99">
+  <input type="number" name="inv_price" id="inv-price" required value="<%= locals.inv_price %>" step="0.01" placeholder="Integer or decimal only">
   
   <!-- Miles -->
   <label for="inv-year">Miles:</label>
-  <input type="number" name="inv_miles" id="inv-miles" step="0.01" required value="<%= locals.inv_miles %>" placeholder="12345.67">
+  <input type="number" name="inv_miles" id="inv-miles" required value="<%= locals.inv_miles %>" placeholder="Integer Only">
   
   <!-- Color -->
   <label for="inv-color">Color:</label>
-  <input type="text" name="inv_color" id="inv-color" required value="<%= locals.inv_color %>"  placeholder="Blue">
+  <input type="text" name="inv_color" id="inv-color" required value="<%= locals.inv_color %>" pattern="^[a-zA-Z\-]+" placeholder="Eg. Blue, Red, Gold...">
   
-  <!-- Classification -->
-  <label for="classification-list">Classification:</label>
-  <%- classificationList %>
-
   <button type="submit">Create</button>
 
 </form>

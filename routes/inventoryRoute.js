@@ -7,7 +7,7 @@ const validation = require("../utilities/inv-validation")
 router.get("/type/:classificationId", utilities.serverError(invController.buildByClassificationId));
 router.get("/detail/:vehicleId", utilities.serverError(invController.buildByVehicleId));
 
-router.get("/management", utilities.handleErrors(invController.buildManagementView))
+router.get("/", utilities.handleErrors(invController.buildManagementView))
 
 router.get("/classification", utilities.handleErrors(invController.buildClassification))
 router.get("/create", utilities.handleErrors(invController.addInventoryHandler))
