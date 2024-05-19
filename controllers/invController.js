@@ -96,22 +96,20 @@ invCont.addInventory = async function (req, res, next) {
   let classificationList = await utilities.buildClassificationList();
   let { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id
   } = req.body;
+  
   const createdItem = await invModel.createInventoryItem(
     inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id
   );
-
-  console.log(createdItem);
 
   if (createdItem) {
     req.flash(
       "notice",
       `Successfully added the ${inv_make + " " + inv_model} to the inventory!`
     )
-    res.status(201).render("inventory/add-inventory", {
-      title: "Add Classification",
+    res.status(201).redirect('/inv').render("inventory/management", {
+      title: "Management",
       nav,
       errors: null,
-      classificationList
     })
   } else {
     req.flash(
