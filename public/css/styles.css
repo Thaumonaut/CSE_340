@@ -320,6 +320,10 @@ li.requirement-text {
   left: 1rem;
 }
 
+#inventory-form div{
+  display: grid;
+}
+
 @media screen and (min-width: 600px) {
   .grid {
     grid-template-columns: 1fr 1fr;
@@ -346,5 +350,16 @@ li.requirement-text {
 
   #delorean-upgrades-title {
     grid-column: 1/2;
-  } 
+  }
+
+  #inventory-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    max-width: 600px;
+  }
+
+  .full-width {
+    grid-column: span 2;
+  }
 }

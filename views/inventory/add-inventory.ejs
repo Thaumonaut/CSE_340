@@ -14,78 +14,98 @@
   </ul>
 <% } %>
 
-<form action="/inv/create" method="post">
+<form action="/inv/create" method="post" id="inventory-form">
 
   <!-- Classification -->
-  <label for="classification-list">Classification:</label>
-  <%- classificationList %>
+  <div class="full-width">
+    <label for="classification-list">Classification:</label>
+    <%- classificationList %>
+  </div>
 
   <!-- Make -->
-  <label for="inv-make">Make:</label>
-  <input 
-    type="text" 
-    name="inv_make"
-    id="inv-make" 
-    required 
-    value="<%= locals.inv_make %>"
-    pattern=".{3,}"
-    placeholder="Min 3 Characters"
-    >
+  <div>
+    <label for="inv-make">Make:</label>
+    <input 
+      type="text" 
+      name="inv_make"
+      id="inv-make" 
+      required 
+      value="<%= locals.inv_make %>"
+      pattern=".{3,}"
+      placeholder="Min 3 Characters"
+      >
+  </div>
   
   <!-- Model -->
-  <label for="inv-model">Model:</label>
-  <input
-    type="text"
-    name="inv_model"
-    id="inv-model"
-    required
-    pattern=".{3,}"
-    value="<%= locals.inv_model %>"
-    placeholder="Min 3 Characters"
-  >
+  <div>
+    <label for="inv-model">Model:</label>
+    <input
+      type="text"
+      name="inv_model"
+      id="inv-model"
+      required
+      pattern=".{3,}"
+      value="<%= locals.inv_model %>"
+      placeholder="Min 3 Characters"
+    >
+  </div>
   
   <!-- Year -->
-  <label for="inv-year">Year:</label>
-  <input 
-    type="text"
-    inputmode="numeric"
-    name="inv_year"
-    id="inv-year"
-    required
-    pattern="[0-9]{4}"
-    value="<%= locals.inv_year %>"
-    placeholder="4-Digits Required"
-  >
+  <div>
+    <label for="inv-year">Year:</label>
+    <input 
+      type="text"
+      inputmode="numeric"
+      name="inv_year"
+      id="inv-year"
+      required
+      pattern="[0-9]{4}"
+      value="<%= locals.inv_year %>"
+      placeholder="4-Digits Required"
+    >
+  </div>
+
+  <!-- Color -->
+  <div>
+    <label for="inv-color">Color:</label>
+    <input type="text" name="inv_color" id="inv-color" required value="<%= locals.inv_color %>" pattern="^[a-zA-Z\-]+" placeholder="Eg. Blue, Red, Gold...">
+  </div>
   
   <!-- Description -->
-  <label for="inv-description">Description:</label>
-  <textarea 
-    name="inv_description" 
-    id="inv-description" 
-    required 
-    placeholder="Information about the vehicle..."
-  ><%= locals.inv_description %></textarea>
+  <div class="full-width">
+    <label for="inv-description">Description:</label>
+    <textarea 
+      name="inv_description" 
+      id="inv-description" 
+      required 
+      placeholder="Information about the vehicle..."
+    ><%= locals.inv_description %></textarea>
+  </div>
 
   <!-- Image -->
-  <label for="inv-image">Image:</label>
-  <input type="text" name="inv_image" id="inv-image" required value="<%= locals.inv_image %>" placeholder="image.jpg" pattern="^[^\s]+\.(jpg|jpeg|png|gif|bmp)$">
+  <div>
+    <label for="inv-image">Image:</label>
+    <input type="text" name="inv_image" id="inv-image" required value="<%= locals.inv_image %>" placeholder="image.jpg" pattern="^[^\s]+\.(jpg|jpeg|png|gif|bmp)$">
+  </div>
   
   <!-- Thumbnail -->
-  <label for="inv-thumbnail">Thumbnail:</label>
-  <input type="text" name="inv_thumbnail" id="inv-thumbnail" required value="<%= locals.inv_thumbnail %>" placeholder="image-tn.jpg" pattern="^[^\s]+\.(jpg|jpeg|png|gif|bmp)$">
+  <div>
+    <label for="inv-thumbnail">Thumbnail:</label>
+    <input type="text" name="inv_thumbnail" id="inv-thumbnail" required value="<%= locals.inv_thumbnail %>" placeholder="image-tn.jpg" pattern="^[^\s]+\.(jpg|jpeg|png|gif|bmp)$">
+  </div>
 
   <!-- Price -->
-  <label for="inv-price">Price:</label>
-  <input type="number" name="inv_price" id="inv-price" required value="<%= locals.inv_price %>" step="0.01" placeholder="Integer or decimal only">
+  <div>
+    <label for="inv-price">Price:</label>
+    <input type="number" name="inv_price" id="inv-price" required value="<%= locals.inv_price %>" step="0.01" placeholder="Integer or decimal only">
+  </div>
   
   <!-- Miles -->
-  <label for="inv-year">Miles:</label>
-  <input type="number" name="inv_miles" id="inv-miles" required value="<%= locals.inv_miles %>" placeholder="Integer Only">
+  <div>
+    <label for="inv-year">Miles:</label>
+    <input type="number" name="inv_miles" id="inv-miles" required value="<%= locals.inv_miles %>" placeholder="Integer Only">
+  </div>
   
-  <!-- Color -->
-  <label for="inv-color">Color:</label>
-  <input type="text" name="inv_color" id="inv-color" required value="<%= locals.inv_color %>" pattern="^[a-zA-Z\-]+" placeholder="Eg. Blue, Red, Gold...">
-  
-  <button type="submit">Create</button>
+  <button type="submit" class="full-width">Create</button>
 
 </form>
