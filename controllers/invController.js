@@ -106,11 +106,13 @@ invCont.addInventory = async function (req, res, next) {
       "notice",
       `Successfully added the ${inv_make + " " + inv_model} to the inventory!`
     )
-    res.status(201).redirect('/inv').render("inventory/management", {
-      title: "Management",
-      nav,
-      errors: null,
-    })
+    res.status(201)
+    .redirect("/inv")
+    // .render("inventory/management", {
+    //   title: "Management",
+    //   nav,
+    //   errors: null,
+    // })
   } else {
     req.flash(
       "warning",
