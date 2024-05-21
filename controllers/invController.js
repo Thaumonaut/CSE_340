@@ -59,7 +59,7 @@ invCont.addClassification = async function (req, res, next) {
 
   if (!insertResult) {
     req.flash(
-      "notice",
+      "success",
       `Successfully added ${classification_name} to the list of classifications!`
     )
     res.status(201).render("inventory/add-classification", {
@@ -103,7 +103,7 @@ invCont.addInventory = async function (req, res, next) {
 
   if (createdItem) {
     req.flash(
-      "notice",
+      "success",
       `Successfully added the ${inv_make + " " + inv_model} to the inventory!`
     )
     res.status(201)

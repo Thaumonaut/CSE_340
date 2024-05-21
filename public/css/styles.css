@@ -286,12 +286,27 @@ li.requirement-text {
 
 .notice {
   list-style: none;
+  background-color: rgb(255, 238, 183);
+  padding: 1rem;
+  position: relative;
+  border: rgba(255, 203, 33, 0.8) solid 4px;
+  border-radius: 1rem;
+}
+
+.success {
+  list-style: none;
   background-color: rgb(182, 226, 169);
   padding: 1rem;
   padding-left: 3rem;
   position: relative;
   border: rgba(72, 172, 72, 0.5) solid 4px;
   border-radius: 1rem;
+}
+
+.success::before {
+  content: "👋";
+  position: absolute;
+  left: 1rem;
 }
 
 .warning::before {
@@ -312,12 +327,6 @@ li.requirement-text {
   position: relative;
   border: rgba(255, 61, 61, 0.5) solid 4px;
   border-radius: 1rem;
-}
-
-.notice::before {
-  content: "👋";
-  position: absolute;
-  left: 1rem;
 }
 
 #inventory-form div{

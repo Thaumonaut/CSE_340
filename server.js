@@ -11,6 +11,7 @@ const env = require("dotenv").config()
 const session = require('express-session')
 const expressLayouts = require('express-ejs-layouts')
 const bodyParser = require('body-parser')
+const cookieParser = require("cookie-parser")
 
 const baseController = require("./controllers/baseController")
 const utilities = require('./utilities/')
@@ -37,6 +38,9 @@ const accountRoute = require('./routes/accountRoute')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
+
+app.use(cookieParser())
+app.use(utilities.checkJWTToken)
 
 //Express Messages Middleware
 app.use(require('connect-flash')());
