@@ -31,6 +31,17 @@ router.get('/getInventory/:classification_id', utilities.handleErrors(invControl
  * =========================================== */
 router.get("/edit/:vehicleId", utilities.handleErrors(invController.buildInventoryEdit))
 
+/* ===========================================
+ * Create inventory item deletion view
+ * =========================================== */
+router.get("/delete/:vehicleId", utilities.handleErrors(invController.buildDeleteInventory))
+
+/* ===========================================
+ * Delete item from inventory
+ * =========================================== */
+router.post("/delete/", utilities.handleErrors(invController.deleteInventory))
+
+
 /** ===========================================
  * Add new classification of vehicle
  * =========================================== */
