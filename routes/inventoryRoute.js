@@ -4,14 +4,36 @@ const invController = require("../controllers/invController")
 const utilities = require("../utilities/")
 const validation = require("../utilities/inv-validation")
 
+/** ===========================================
+ * Show management view
+ * =========================================== */
+router.get("/", utilities.handleErrors(invController.buildManagementView))
+
+/** ===========================================
+ * Show vechiles by classification and details view
+ * =========================================== */
 router.get("/type/:classificationId", utilities.serverError(invController.buildByClassificationId));
 router.get("/detail/:vehicleId", utilities.serverError(invController.buildByVehicleId));
 
-router.get("/", utilities.handleErrors(invController.buildManagementView))
-
+/** ===========================================
+ * Show classification adding and inventory adding views
+ * =========================================== */
 router.get("/classification", utilities.handleErrors(invController.buildClassification))
-router.get("/create", utilities.handleErrors(invController.addInventoryHandler))
+router.get("/create", utilities.handleErrors(invController.buildInventoryCreateView))
 
+/** ===========================================
+ * Get vehicle information from DB in JSON format
+ * =========================================== */
+router.get('/getInventory/:classification_id', utilities.handleErrors(invController.getInventoryJSON))
+
+/** ===========================================
+ * Edit vehicle details from management view
+ * =========================================== */
+router.get("/edit/:vehicleId", utilities.handleErrors(invController.buildInventoryEdit))
+
+/** ===========================================
+ * Add new classification of vehicle
+ * =========================================== */
 router.post(
   "/classification",
   validation.classificationRules(),
@@ -19,11 +41,23 @@ router.post(
   utilities.handleErrors(invController.addClassification)
 )
 
+/* ===========================================
+ * Add new vehicle to the inventory
+ * =========================================== */
 router.post(
   "/create",
   validation.inventoryRules(),
   validation.checkInventory,
   utilities.handleErrors(invController.addInventory)
+)
+
+/* ===========================================
+ * Update details in inventory
+ * =========================================== */
+router.post("/update", 
+  validation.inventoryRules(),
+  validation.checkUpdateData,
+  invController.updateInventory
 )
 
 module.exports = router;

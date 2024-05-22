@@ -37,8 +37,8 @@ validate.inventoryRules = () => {
     body('inv_make')
     .trim()
     .notEmpty()
-    .isLength({min: 3})
-    .withMessage("Vehicle make is required with minimum 3 characters."),
+    .isLength({min: 2})
+    .withMessage("Vehicle make is required with minimum 2 characters."),
 
     body('inv_model')
     .trim()
@@ -60,13 +60,13 @@ validate.inventoryRules = () => {
     body('inv_image')
     .trim()
     .notEmpty()
-    .matches("^[^\s]+\.(jpg|jpeg|png|gif|bmp)$")
+    // .matches("^[^\s]+\.(jpg|jpeg|png|gif|bmp)$")
     .withMessage("Vehicle image is required."),
 
     body('inv_thumbnail')
     .trim()
     .notEmpty()
-    .matches("^[^\s]+\.(jpg|jpeg|png|gif|bmp)$")
+    // .matches("^[^\s]+\.(jpg|jpeg|png|gif|bmp)$")
     .withMessage("Vehicle thumbnail is required."),
 
     body('inv_price')
@@ -118,6 +118,53 @@ validate.checkInventory = async (req, res, next) => {
       errors,
       nav,
       title: "Create Inventory Item",
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_color,
+      classificationList
+    })
+    return;
+  }
+  
+  next();
+}
+
+
+/* ======================================
+ * Validate inventory update and return to edit view on error
+ * ====================================== */
+validate.checkUpdateData = async (req, res, next) => {
+  const {
+    inv_id,
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color,
+    classification_id
+  } = req.body;
+
+  
+  let errors = [];
+  errors = validationResult(req);
+  if(!errors.isEmpty()) {
+    let nav = utilities.getNav();
+    let classificationList = await utilities.buildClassificationList(classification_id);
+    res.render("inventory/update-inventory", {
+      errors,
+      nav,
+      title: `Edit ${inv_make} ${inv_model}`,
+      inv_id,
       inv_make,
       inv_model,
       inv_year,

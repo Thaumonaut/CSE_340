@@ -14,7 +14,12 @@
   </ul>
 <% } %>
 
-<form action="/inv/create" method="post" id="inventory-form">
+<form action="/inv/update" method="post" id="inventory-form">
+
+  <!-- inventory id -->
+  <input type="hidden" name="inv_id"
+  <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+  <% } %>>
 
   <!-- Classification -->
   <div class="full-width">
@@ -106,6 +111,6 @@
     <input type="number" name="inv_miles" id="inv-miles" required value="<%= locals.inv_miles %>" placeholder="Integer Only">
   </div>
   
-  <button type="submit" class="full-width">Create</button>
+  <button type="submit" class="full-width">Update vehicle</button>
 
 </form>
