@@ -42,6 +42,28 @@ async function buildRegister(req, res, next) {
 }
 
 /* ****************************************
+*  Deliver account update view
+* *************************************** */
+async function buildAccountUpdate(req, res, next) {
+  let nav = await utilities.getNav()
+  const {
+    account_id,
+    account_firstname,
+    account_lastname,
+    account_email
+  } = await accountModel.getAccountById(req.params.account_id)
+  res.render("account/update", {
+    title: "Edit Account Details",
+    nav,
+    errors: null,
+    account_id,
+    account_firstname,
+    account_lastname,
+    account_email
+  })
+}
+
+/* ****************************************
 *  Process Registration
 * *************************************** */
 async function registerAccount(req, res) {
@@ -90,6 +112,105 @@ async function registerAccount(req, res) {
 }
 
 /* ****************************************
+*  Update account information
+* *************************************** */
+async function updateAccountDetails(req, res) {
+  let nav = await utilities.getNav()
+  const { account_id, account_firstname, account_lastname, account_email } = req.body
+
+  let result = await accountModel.updateAccountDetails(
+      account_id,
+      account_firstname,
+      account_lastname,
+      account_email
+  )
+
+  if (result) {
+
+    res.locals.accountData = {account_id, account_firstname, account_lastname, account_email }
+
+    req.flash(
+      "success",
+      `Congratulations, you\'re updated ${account_firstname}.`
+    )
+    res.status(201).render("account/update", {
+      title: "Login",
+      nav,
+      errors: null,
+      account_id,
+      account_firstname,
+      account_lastname,
+      account_email,
+    })
+  } else {
+    req.flash("notice", "Sorry, the update failed.")
+    res.status(501).render("account/update", {
+      title: "Edit account details",
+      nav,
+      errors: null,
+      account_id,
+      account_firstname,
+      account_lastname,
+      account_email,
+    })
+  }
+
+}
+
+async function updateAccountPassword(req, res) {
+  let nav = await utilities.getNav()
+  const { account_id, account_password } = req.body
+  const { account_firstname, account_lastname, account_email } = await accountModel.getAccountById(account_id)
+  let hashedPassword
+
+  try {
+    // regular password and cost (salt is generated automatically)
+    hashedPassword = await bcrypt.hashSync(account_password, 10)
+  } catch (error) {
+    req.flash("notice", 'Sorry, there was an error updating the password.')
+    res.status(500).render("account/update", {
+      title: "Edit account details",
+      nav,
+      errors: null,
+      account_id,
+      account_firstname,
+      account_lastname,
+      account_email,
+    })
+  }
+
+  const result = await accountModel.updateAccountPassword(account_id, hashedPassword)
+
+  if (result) {
+    req.flash(
+      "success",
+      `Congratulations, password has been updated.`
+    )
+    res.status(201).render("account/update", {
+      title: "Login",
+      nav,
+      errors: null,
+      account_id,
+      account_firstname,
+      account_lastname,
+      account_email,
+    })
+  } else {
+    req.flash("notice", "Sorry, the update failed.")
+    res.status(501).render("account/update", {
+      title: "Edit account details",
+      nav,
+      errors: null,
+      account_id,
+      account_firstname,
+      account_lastname,
+      account_email,
+    })
+  }
+
+}
+
+/* ****************************************
  *  Process login request
  * ************************************ */
 async function accountLogin(req, res) {
@@ -122,4 +243,24 @@ async function accountLogin(req, res) {
   }
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccount }
+async function accountLogout(req, res) {
+  res.clearCookie("jwt");
+  res.locals.loggedin = 0;
+  res.redirect('back');
+}
+
+
+
+
+module.exports = { 
+  buildLogin,
+  buildRegister,
+  buildAccount,
+  buildAccountUpdate,
+  registerAccount,
+  updateAccountDetails,
+  updateAccountPassword,
+  accountLogin,
+  accountLogout,
+  // accountDelete,
+}

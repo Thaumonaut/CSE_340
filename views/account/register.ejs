@@ -15,25 +15,34 @@
 <% } %>
 
 <form action="/account/register" method="post">
-    <h2><%- title %></h2>
-    <label for="account_firstname">First Name</label>
-    <input 
-        type="text"
-        id="account_firstname"
-        name="account_firstname"
-        required
-        value="<%= locals.account_firstname %>"
-    >
+    <h2 class="full-width"><%- title %></h2>
+    <div>
+        <label for="account_firstname">First Name</label>
+        <input 
+            type="text"
+            id="account_firstname"
+            name="account_firstname"
+            required
+            value="<%= locals.account_firstname %>"
+        >
+    </div>
 
-    <label for="account_lastname">Last Name</label>
-    <input type="text" id="account_lastname" name="account_lastname" required value="<%= locals.account_lastname %>">
+    <div>
+        <label for="account_lastname">Last Name</label>
+        <input type="text" id="account_lastname" name="account_lastname" required value="<%= locals.account_lastname %>">
+    </div>
 
-    <label for="account_email">Email</label>
-    <input type="email" id="account_email" name="account_email" required value="<%= locals.account_email %>">
+    <div>
+        <label for="account_email">Email</label>
+        <input type="email" id="account_email" name="account_email" required value="<%= locals.account_email %>">
+    </div>
+    
+    <div>
+        <label for="account_password">Password</label>
+        <input type="password" id="account_password" name="account_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required>
+    </div>
 
-    <label for="account_password">Password</label>
-    <input type="password" id="account_password" name="account_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required>
-    <ul class="requirement-text">
+    <ul class="requirement-text full-width">
         <li>Password must contain <span class="hl-text">at least 12 or more</span> characters long.</li>
         <li>Password must contain <span class="hl-text">at least 1</span> captital letter</li>
         <li>Password must <span class="hl-text">at least 1</span> number</li>

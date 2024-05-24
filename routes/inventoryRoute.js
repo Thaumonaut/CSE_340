@@ -7,7 +7,7 @@ const validation = require("../utilities/inv-validation")
 /** ===========================================
  * Show management view
  * =========================================== */
-router.get("/", utilities.handleErrors(invController.buildManagementView))
+router.get("/", utilities.checkEmployeeLogin, utilities.handleErrors(invController.buildManagementView))
 
 /** ===========================================
  * Show vechiles by classification and details view
@@ -18,8 +18,8 @@ router.get("/detail/:vehicleId", utilities.serverError(invController.buildByVehi
 /** ===========================================
  * Show classification adding and inventory adding views
  * =========================================== */
-router.get("/classification", utilities.handleErrors(invController.buildClassification))
-router.get("/create", utilities.handleErrors(invController.buildInventoryCreateView))
+router.get("/classification", utilities.checkEmployeeLogin, utilities.handleErrors(invController.buildClassification))
+router.get("/create", utilities.checkEmployeeLogin, utilities.handleErrors(invController.buildInventoryCreateView))
 
 /** ===========================================
  * Get vehicle information from DB in JSON format
@@ -29,12 +29,12 @@ router.get('/getInventory/:classification_id', utilities.handleErrors(invControl
 /** ===========================================
  * Edit vehicle details from management view
  * =========================================== */
-router.get("/edit/:vehicleId", utilities.handleErrors(invController.buildInventoryEdit))
+router.get("/edit/:vehicleId", utilities.checkEmployeeLogin, utilities.handleErrors(invController.buildInventoryEdit))
 
 /* ===========================================
  * Create inventory item deletion view
  * =========================================== */
-router.get("/delete/:vehicleId", utilities.handleErrors(invController.buildDeleteInventory))
+router.get("/delete/:vehicleId", utilities.checkEmployeeLogin, utilities.handleErrors(invController.buildDeleteInventory))
 
 /* ===========================================
  * Delete item from inventory

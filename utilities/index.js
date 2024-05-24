@@ -174,4 +174,25 @@ Util.checkLogin = (req, res, next) => {
   }
 }
 
+Util.checkEmployeeLogin = (req, res, next) => {
+  // Check if logged in first, and exit early if not.
+  if (!res.locals.loggedin) {
+    req.flash("notice", "Please log in.")
+    return res.redirect("/account/login")
+  }
+
+  const account_type = res.locals.accountData.account_type;
+
+  // Could also use |account_type != "Client"| since there are only three options
+  // I like to be more specific here to have more control
+  if ( account_type == "Employee" || account_type == "Admin") {
+    next()
+  } else {
+    req.flash("notice", "Access Denied. Sign in as an Employee or Admin for access.")
+    return res.redirect("/account")
+
+  }
+
+}
+
 module.exports = Util;

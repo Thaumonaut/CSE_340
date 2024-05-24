@@ -1,0 +1,88 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } else {
+    res.redirect('/')
+} %>
+
+<%- messages() %>
+
+<% if (errors) { %>
+  <ul class="warning">
+    <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <%  }) %>
+  </ul>
+<% } %>
+
+<form action="/account/updateDetails" method="post">
+    <h2 class="full-width">Account Details</h2>
+    
+    <!-- inventory id -->
+    <input type="hidden" name="account_id"
+    <% if(locals.account_id) { %> value="<%= locals.account_id %>"
+    <% } %>>
+    
+    <div>
+      <label for="account_firstname">First Name</label>
+      <input 
+        type="text"
+        id="account_firstname"
+        name="account_firstname"
+        required
+        value="<%= locals.account_firstname %>"
+      >
+    </div>
+
+    <div>
+      <label for="account_lastname">Last Name</label>
+      <input 
+        type="text" 
+        id="account_lastname" 
+        name="account_lastname" 
+        required 
+        value="<%= locals.account_lastname %>"
+      >
+    </div>
+
+    <div class="full-width">
+      <label for="account_email">Email</label>
+      <input 
+        type="email" 
+        id="account_email" 
+        name="account_email" 
+        required 
+        value="<%= locals.account_email %>"
+      >
+    </div>
+
+    <button type="submit" class="full-width">Update Details</button>
+</form>
+
+<form action="/account/updatePassword" method="post">
+  <h2 class="full-width">Change Password</h2>
+
+  <!-- inventory id -->
+  <input type="hidden" name="account_id"
+  <% if(locals.account_id) { %> value="<%= locals.account_id %>"
+  <% } %>>
+
+  <div class="full-width">
+    <label for="account_password">New Password</label>
+    <input 
+      type="password" 
+      id="account_password" 
+      name="account_password" 
+      pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" 
+      required
+    >
+  </div>
+
+  <ul class="requirement-text full-width">
+      <li>Password must contain <span class="hl-text">at least 12 or more</span> characters long.</li>
+      <li>Password must contain <span class="hl-text">at least 1</span> captital letter</li>
+      <li>Password must <span class="hl-text">at least 1</span> number</li>
+      <li>Password must <span class="hl-text">at least 1</span> special character</li>
+  </ul>
+
+  <button type="submit" class="full-width">Update Password</button>
+</form>

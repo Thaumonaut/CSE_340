@@ -71,11 +71,19 @@ h1, h2, h3, h4, h5, h6 {
 #tools {
   padding-top: 1.5rem;
   font-variant: small-caps;
+  display: flex;
+  justify-content: space-between;
 }
 
 #tools a {
   text-decoration: none;
   color: var(--black);
+  margin-left: 1rem;
+}
+
+#tools a span {
+  font-size: larger;
+  color: var(--main-color)
 }
 
 nav ul li {
@@ -206,14 +214,20 @@ figure a {
 }
 
 form {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
+  max-width: 400px; */
+  
+  display: grid;
+  gap: 1.5rem;
+  max-width: 600px;
+  
   width: 100%;
   padding: 2rem;
   background-color: var(--black);
   color: var(--white);
-  max-width: 400px;
   margin-inline: auto;
+  margin-bottom: 1rem;
 }
 
 form label {
@@ -329,7 +343,7 @@ li.requirement-text {
   border-radius: 1rem;
 }
 
-#inventory-form div{
+form div {
   display: grid;
 }
 
@@ -366,6 +380,10 @@ li.requirement-text {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
     max-width: 600px;
+  }
+
+  form {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .full-width {
