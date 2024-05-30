@@ -1,0 +1,34 @@
+<% if (title) { %>
+  <h1><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+<%- messages() %>
+
+<% if (errors) { %>
+<ul class="warning">
+  <% errors.array().forEach(error => { %>
+    <li><%= error.msg %></li>
+  <%  }) %>
+</ul>
+<% } %>
+
+<p>Are you sure you want to delete your account, <%- locals.accountData.account_firstname %>?</p>
+
+<form action="/account/delete" method="post">
+  <p class="full-width notice">This is permenant!</p>
+
+  <!-- inventory id -->
+  <input type="hidden" name="account_id"
+  <% if(locals.account_id) { %> value="<%= locals.account_id %>"
+  <% } %>>
+
+  <div class="full-width">
+    <label for="account_password">Password</label>
+    <input type="password" id="account_password" name="account_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required>
+  </div>
+  <p class="full-width requirement-text">Please enter your password to delete your account</p>
+
+  <button type="submit" class="full-width">Delete account</button>
+</form>

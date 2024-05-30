@@ -305,6 +305,8 @@ li.requirement-text {
   position: relative;
   border: rgba(255, 203, 33, 0.8) solid 4px;
   border-radius: 1rem;
+  color: var(--black);
+  font-weight: 700;
 }
 
 .success {
@@ -345,6 +347,31 @@ li.requirement-text {
 
 form div {
   display: grid;
+}
+
+.account-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.account-details a {
+  margin-bottom: .5rem;
+  text-decoration: none;
+  border-bottom: 2px solid var(--main-color);
+  width: fit-content;
+  color: var(--black)
+}
+
+.account-details a:visited {
+  color: var(--black)
+}
+
+.account-details a:hover {
+  color: var(--main-color)
+}
+
+.account-details a:hover::before, .account-details a:focus:before {
+  content: "> ";
 }
 
 @media screen and (min-width: 600px) {

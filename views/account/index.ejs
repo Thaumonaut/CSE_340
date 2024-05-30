@@ -24,4 +24,7 @@
 <% } %>
 
 <h3>Account Details</h3>
-<a href="/account/update/<%- locals.accountData.account_id %>">Update account information</a>
+<div class="account-details">
+  <a href="/account/update/<%- locals.accountData.account_id %>">Update account information</a>
+  <a href="/account/delete/<%- locals.accountData.account_id %>">Delete account</a>
+</div>

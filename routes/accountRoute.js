@@ -11,6 +11,7 @@ router.get('/register', utilities.handleErrors(accountController.buildRegister))
 router.get('/logout', utilities.handleErrors(accountController.accountLogout))
 
 router.get('/update/:account_id', utilities.checkLogin, utilities.handleErrors(accountController.buildAccountUpdate))
+router.get('/delete/:account_id', utilities.checkLogin, utilities.handleErrors(accountController.buildDeletion))
 
 
 // ROUTER POST
@@ -39,10 +40,10 @@ router.post(
   utilities.handleErrors(accountController.updateAccountPassword)
 )
 
-// router.post(
-//   '/delete',
-//   utilities.handleErrors(accountController.deleteAccount)
-// )
+router.post(
+  '/delete',
+  utilities.handleErrors(accountController.accountDelete)
+)
 
 // Process the login attempt
 router.post(

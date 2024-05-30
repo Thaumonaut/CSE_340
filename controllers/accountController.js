@@ -237,19 +237,62 @@ async function accountLogin(req, res) {
         res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
       }
       return res.redirect("/account/")
+    } else {
+      throw new Error("Password Incorrect.")
     }
   } catch (error) {
-    return new Error('Access Forbidden')
+    req.flash("warning", error.message)
+    res.redirect("back")
   }
 }
 
 async function accountLogout(req, res) {
   res.clearCookie("jwt");
   res.locals.loggedin = 0;
-  res.redirect('back');
+  res.redirect('/');
 }
 
+/* ****************************************
+*  Deliver Delete Confirmation view
+* *************************************** */
+async function buildDeletion(req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("account/confirmDeletion", {
+    title: "Confirm Account Deletion",
+    nav,
+    errors: null,
+    account_id: req.params.account_id
+  })
+}
 
+async function accountDelete(req, res) {
+  const { account_id, account_password } = req.body
+  const accountData = await accountModel.getAccountById(account_id)
+
+  try {
+    let match = await bcrypt.compare(account_password, accountData.account_password)
+    if (match) {
+      delete accountData.account_password
+      try {
+        const confirmation = await accountModel.deleteAccount(account_id)
+        if(!confirmation) {
+          req.flash("success", "Account deleted.")
+          res.clearCookie("jwt");
+          res.locals.loggedin = 0;
+          res.redirect('/')
+        }
+      } catch (error) {
+        return new Error("Unable to delete account.")
+      }
+    } else {
+      throw new Error('Password Incorrect')
+    }
+  } catch (error) {
+    req.flash("warning", error.message)
+    res.redirect("back")
+  }
+
+}
 
 
 module.exports = { 
@@ -257,10 +300,11 @@ module.exports = {
   buildRegister,
   buildAccount,
   buildAccountUpdate,
+  buildDeletion,
   registerAccount,
   updateAccountDetails,
   updateAccountPassword,
   accountLogin,
   accountLogout,
-  // accountDelete,
+  accountDelete,
 }
